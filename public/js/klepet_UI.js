@@ -127,21 +127,7 @@ $(document).ready(function() {
   
 });
 function dodajSlike(vhodnoBesedilo){
- /* var preslikovalnaTabela=vhodnoBesedilo.split(' ');
-  var dolzinaTabele = preslikovalnaTabela.length;
-  for(var i=0;i<dolzinaTabele;i++){
-    var zacetek = preslikovalnaTabela[i].indexOf('http://' || 'https://' );
-    var konec = preslikovalnaTabela[i].indexOf('.jpg' || '.gif' || '.png');
-   
-     if(zacetek==0) {
-     if(konec == (dolzinaTabele - 4)) {
-        vhodnoBesedilo += "<div><img src="+preslikovalnaTabela[i]+"></div>";
-      }
-    } 
-    
-   
-    
-  }*/
+
     var preslikovalnaTabela = vhodnoBesedilo.split(' ');
   for(var i = 0; i < preslikovalnaTabela.length; i++) {
     var zacetek=preslikovalnaTabela[i].indexOf('http://');
