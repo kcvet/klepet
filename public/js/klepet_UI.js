@@ -1,9 +1,14 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var jeYT=sporocilo.indexOf('https://www.youtube.com/embed/') > -1;
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
-  } else {
+  }else if(jeYT){
+    
+     return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  }
+  else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
   }
 }
@@ -15,6 +20,7 @@ function divElementHtmlTekst(sporocilo) {
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
+  sporocilo=dodajYT(sporocilo);
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -23,6 +29,7 @@ function procesirajVnosUporabnika(klepetApp, socket) {
       $('#sporocila').append(divElementHtmlTekst(sistemskoSporocilo));
     }
   } else {
+    
     sporocilo = filtirirajVulgarneBesede(sporocilo);
     klepetApp.posljiSporocilo(trenutniKanal, sporocilo);
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
@@ -130,4 +137,24 @@ function dodajSmeske(vhodnoBesedilo) {
       preslikovalnaTabela[smesko] + "' />");
   }
   return vhodnoBesedilo;
+}
+function dodajYT(vhodnoBesedilo){
+  var preslikovalnaTabela = vhodnoBesedilo.split(' ');
+  for(var i=0; i<preslikovalnaTabela.length;i++){
+    
+      var zac= preslikovalnaTabela[i].indexOf('https://www.youtube.com/watch?v='); 
+      if(zac!=-1 && preslikovalnaTabela[i].length==43){//youtube link ima 43 znakov <---poskrbi da je link pravilno dolg
+        var stringsplt= preslikovalnaTabela[i].split('='); //razdeli na prvi in drugi del ki ima id videa
+        
+       // vhodnoBesedilo += "<div><iframe src="+"\""+"https://www.youtube.com/embed/" +stringsplt[1]+" allowfullscreen>"+ "</iframe></div>";
+        vhodnoBesedilo += "<div><iframe src=https://www.youtube.com/embed/"+stringsplt[1]+" allowfullscreen></iframe></div>";
+      }
+     
+     
+     
+  }
+  
+return vhodnoBesedilo;
+  
+  
 }
