@@ -216,3 +216,4 @@ socket.on('dregljaj', function() {
    },1500);
   });
 
+//nevem zakaj bi hotu kdo met to annoying funkcijo
