@@ -1,5 +1,6 @@
 function divElementEnostavniTekst(sporocilo) {
   var jeSlika=sporocilo.indexOf('<img') > -1;
+ 
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
@@ -143,7 +144,7 @@ function dodajSlike(vhodnoBesedilo){
     var konec2=preslikovalnaTabela[i].indexOf('.png');
   if(zacetek==0 || zacetek1==0) {
       if(konec == (preslikovalnaTabela[i].length - 4) || konec1 == (preslikovalnaTabela[i].length - 4) || konec2 == (preslikovalnaTabela[i].length - 4)) {
-        vhodnoBesedilo += "<div><img src="+preslikovalnaTabela[i]+" width=200></div>";
+        vhodnoBesedilo += "<div><img src="+preslikovalnaTabela[i]+" ></div>";
       }
     } 
    }
