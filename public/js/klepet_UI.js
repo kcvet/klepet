@@ -106,6 +106,9 @@ $(document).ready(function() {
     socket.emit('uporabniki', {kanal: trenutniKanal});
   }, 1000);
 
+
+
+
   $('#poslji-sporocilo').focus();
 
   $('#poslji-obrazec').submit(function() {
@@ -131,3 +134,10 @@ function dodajSmeske(vhodnoBesedilo) {
   }
   return vhodnoBesedilo;
 }
+socket.on('dregljaj', function() {
+   $('#vsebina').jrumble();
+   $('#vsebina').trigger('startRumble');
+   setTimeout(function(){
+    $('#vsebina').trigger('stopRumble');
+   },1500);
+  });
