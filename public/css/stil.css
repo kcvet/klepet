@@ -19,7 +19,13 @@ img {
   background-color: #FFFF99;
   margin-bottom: 1em;
 }
+iframe {
+  height: 150px;
+  width: 200px;
+  margin-left:20px;
 
+  
+}
 #sporocila {
   width: 85%;
   height: 300px;
