@@ -1,12 +1,21 @@
 function divElementEnostavniTekst(sporocilo) {
+  var jeSlika=sporocilo.indexOf('<img') > -1;
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
-  } else {
+  } else if(jeSlika){
+   
+      return $('<div style="font-weight: bold"></div>').html(sporocilo);
+    // ko si v  dvomih, delaj kot profesor
+  }
+  else {
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
   }
 }
+
+
+
 
 function divElementHtmlTekst(sporocilo) {
   return $('<div></div>').html('<i>' + sporocilo + '</i>');
@@ -15,6 +24,7 @@ function divElementHtmlTekst(sporocilo) {
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
+ 
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -23,6 +33,7 @@ function procesirajVnosUporabnika(klepetApp, socket) {
       $('#sporocila').append(divElementHtmlTekst(sistemskoSporocilo));
     }
   } else {
+    sporocilo = dodajSlike(sporocilo);
     sporocilo = filtirirajVulgarneBesede(sporocilo);
     klepetApp.posljiSporocilo(trenutniKanal, sporocilo);
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
@@ -121,6 +132,27 @@ $(document).ready(function() {
   
   
 });
+function dodajSlike(vhodnoBesedilo){
+
+    var preslikovalnaTabela = vhodnoBesedilo.split(' ');
+  for(var i = 0; i < preslikovalnaTabela.length; i++) {
+    var zacetek=preslikovalnaTabela[i].indexOf('http://');
+    var zacetek1= preslikovalnaTabela[i].indexOf('https://');
+    var konec =preslikovalnaTabela[i].indexOf('.jpg');
+    var konec1=preslikovalnaTabela[i].indexOf('.gif');
+    var konec2=preslikovalnaTabela[i].indexOf('.png');
+  if(zacetek==0 || zacetek1==0) {
+      if(konec == (preslikovalnaTabela[i].length - 4) || konec1 == (preslikovalnaTabela[i].length - 4) || konec2 == (preslikovalnaTabela[i].length - 4)) {
+        vhodnoBesedilo += "<div><img src="+preslikovalnaTabela[i]+" width=200></div>";
+      }
+    } 
+   }
+    
+    
+    
+     return vhodnoBesedilo;
+  
+}
 
 function dodajSmeske(vhodnoBesedilo) {
   var preslikovalnaTabela = {
