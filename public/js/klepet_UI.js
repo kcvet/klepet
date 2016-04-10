@@ -160,7 +160,7 @@ function dodajSlike(vhodnoBesedilo){
     var konec2=preslikovalnaTabela[i].indexOf('.png');
   if(zacetek==0 || zacetek1==0) {
       if(konec == (preslikovalnaTabela[i].length - 4) || konec1 == (preslikovalnaTabela[i].length - 4) || konec2 == (preslikovalnaTabela[i].length - 4)) {
-        vhodnoBesedilo += "<div><img src="+preslikovalnaTabela[i]+" ></div>";
+        vhodnoBesedilo += "<div><img id=slike src="+preslikovalnaTabela[i]+"></div>";
       }
     } 
    }
